@@ -27,12 +27,16 @@ describe('TRIE', () => {
     expect(prefixTrie.count()).to.equal(1);
   });
 
-  it('should insert word correctly', () => {
+  it('should create new branch for each unique first letter', () => {
     prefixTrie.insert('pizza');
     prefixTrie.insert('race');
     prefixTrie.insert('racecar');
-    console.log(JSON.stringify(prefixTrie, null, 4));
-    // expect(prefixTrie.root.children.letter).to.equal('p');
+    prefixTrie.insert('racecars');
+    prefixTrie.insert('car');
+    prefixTrie.insert('carpet');
+    //console.log(JSON.stringify(prefixTrie, null, 4));
+    expect(Object.keys(prefixTrie.root.children)).to.deep.equal(['p', 'r', 'c']);
+
   });
 
 });
