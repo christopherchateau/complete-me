@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Trie from '../lib/trie';
 import fs from 'fs';
-    
+require('locus');
 
 describe('TRIE', () => {
   let prefixTrie;
@@ -11,7 +11,6 @@ describe('TRIE', () => {
 
   beforeEach( () => {
     prefixTrie = new Trie;
-    //prefixTrie.populate(dictionary);
   });
 
   it('should exist', () => {
@@ -36,20 +35,18 @@ describe('TRIE', () => {
   });
 
   it('should return an array of suggestions', () => {
-    prefixTrie.populate(dictionary);
     prefixTrie.insert('carrot');
     prefixTrie.insert('cars');
     prefixTrie.insert('card');
 
-    let response = prefixTrie.suggest('catt');
-
+    let response = prefixTrie.suggest('ca');
     //console.log(JSON.stringify(prefixTrie, null, 4));
     expect(response).to.deep.equal(['carrot', 'cars', 'card']);
   });
 
   it('should populate with dictionary', () => {
     prefixTrie.populate(dictionary);
-    expect(prefixTrie.wordCount).to.equal(235886);
+    expect(prefixTrie.count()).to.equal(235886);
   });
 
 });
