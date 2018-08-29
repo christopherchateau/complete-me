@@ -13,10 +13,6 @@ import Node from '../lib/node';
     expect(node).to.exist;
   });
 
-  it('should default children to be an empty obj', () => {
-    expect(node.children).deep.equal({});
-  });
-
   it('should default end to false', () => {
     expect(node.end).to.equal(false)
   });

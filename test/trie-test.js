@@ -17,9 +17,9 @@ describe('TRIE', () => {
     expect(prefixTrie.wordCount).to.equal(0);
   });
 
-  it('should have a default root of null', () => {
-    expect(prefixTrie.root.children).to.deep.equal({});
-  });
+  // it('should have a default root of null', () => {
+  //   expect(prefixTrie.root.children).to.deep.equal({});
+  // });
 
   it('should increase word-count when a new word is added', () => {
     expect(prefixTrie.count()).to.equal(0);
@@ -27,16 +27,24 @@ describe('TRIE', () => {
     expect(prefixTrie.count()).to.equal(1);
   });
 
-  it('should create new branch for each unique first letter', () => {
-    prefixTrie.insert('pizza');
-    prefixTrie.insert('race');
-    prefixTrie.insert('racecar');
-    prefixTrie.insert('racecars');
-    prefixTrie.insert('car');
-    prefixTrie.insert('carpet');
-    //console.log(JSON.stringify(prefixTrie, null, 4));
-    expect(Object.keys(prefixTrie.root.children)).to.deep.equal(['p', 'r', 'c']);
+  // it('should create new branch for each unique first letter', () => {
+  //   prefixTrie.insert('apple');
+  //   prefixTrie.insert('bat');
+  //   prefixTrie.insert('cat');
+  //   expect(Object.keys(prefixTrie.root.children)).to.deep.equal(['a', 'b', 'c']);
+  // });
 
+  it('should return an array of suggestions', () => {
+    prefixTrie.insert('carrot');
+    prefixTrie.insert('cars');
+    prefixTrie.insert('card');
+
+    let response = prefixTrie.suggest('ca')
+
+    prefixTrie.suggest('car');
+
+    console.log(JSON.stringify(prefixTrie, null, 4));
+    expect(response).to.deep.equal(['carrot', 'cars', 'card']);
   });
 
 });
