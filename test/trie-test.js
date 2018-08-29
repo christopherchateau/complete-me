@@ -1,12 +1,17 @@
 import { expect } from 'chai';
 import Trie from '../lib/trie';
+import fs from 'fs';
     
 
 describe('TRIE', () => {
   let prefixTrie;
+  const text = "/usr/share/dict/words";
+  const dictionary = fs.readFileSync(text).toString().trim().split('\n');
+
 
   beforeEach( () => {
     prefixTrie = new Trie;
+    //prefixTrie.populate(dictionary);
   });
 
   it('should exist', () => {
@@ -17,34 +22,34 @@ describe('TRIE', () => {
     expect(prefixTrie.wordCount).to.equal(0);
   });
 
-  // it('should have a default root of null', () => {
-  //   expect(prefixTrie.root.children).to.deep.equal({});
-  // });
-
   it('should increase word-count when a new word is added', () => {
     expect(prefixTrie.count()).to.equal(0);
     prefixTrie.insert('pizza');
     expect(prefixTrie.count()).to.equal(1);
   });
 
-  // it('should create new branch for each unique first letter', () => {
-  //   prefixTrie.insert('apple');
-  //   prefixTrie.insert('bat');
-  //   prefixTrie.insert('cat');
-  //   expect(Object.keys(prefixTrie.root.children)).to.deep.equal(['a', 'b', 'c']);
-  // });
+  it('should create new branch for each unique first letter', () => {
+    prefixTrie.insert('apple');
+    prefixTrie.insert('bat');
+    prefixTrie.insert('cat');
+    expect(Object.keys(prefixTrie.root)).to.deep.equal(['end', 'a', 'b', 'c']);
+  });
 
   it('should return an array of suggestions', () => {
+    prefixTrie.populate(dictionary);
     prefixTrie.insert('carrot');
     prefixTrie.insert('cars');
     prefixTrie.insert('card');
 
-    let response = prefixTrie.suggest('ca')
+    let response = prefixTrie.suggest('catt');
 
-    prefixTrie.suggest('car');
-
-    console.log(JSON.stringify(prefixTrie, null, 4));
+    //console.log(JSON.stringify(prefixTrie, null, 4));
     expect(response).to.deep.equal(['carrot', 'cars', 'card']);
+  });
+
+  it('should populate with dictionary', () => {
+    prefixTrie.populate(dictionary);
+    expect(prefixTrie.wordCount).to.equal(235886);
   });
 
 });
