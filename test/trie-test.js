@@ -3,7 +3,7 @@ import Trie from '../lib/trie';
 import fs from 'fs';
 require('locus');
 
-describe('TRIE', () => {
+describe('Trie', () => {
   let prefixTrie;
   const text = "/usr/share/dict/words";
   const dictionary = fs.readFileSync(text).toString().trim().split('\n');
