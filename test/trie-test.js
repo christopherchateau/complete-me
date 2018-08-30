@@ -8,7 +8,6 @@ describe('TRIE', () => {
   const text = "/usr/share/dict/words";
   const dictionary = fs.readFileSync(text).toString().trim().split('\n');
 
-
   beforeEach( () => {
     prefixTrie = new Trie;
   });
@@ -39,9 +38,7 @@ describe('TRIE', () => {
     prefixTrie.insert('card');
     prefixTrie.insert('cards');
     prefixTrie.insert('carry');
-
     let response = prefixTrie.suggest('car');
-    //console.log(JSON.stringify(prefixTrie, null, 4));
     expect(response).to.deep.equal(['carrot', 'carry', 'card', 'cards']);
   });
 
@@ -49,5 +46,4 @@ describe('TRIE', () => {
     prefixTrie.populate(dictionary);
     expect(prefixTrie.count()).to.equal(235886);
   });
-
 });
