@@ -22,7 +22,9 @@ describe('TRIE', () => {
 
   it('should increase word-count when a new word is added', () => {
     expect(prefixTrie.count()).to.equal(0);
+
     prefixTrie.insert('pizza');
+
     expect(prefixTrie.count()).to.equal(1);
   });
 
@@ -30,6 +32,7 @@ describe('TRIE', () => {
     prefixTrie.insert('apple');
     prefixTrie.insert('bat');
     prefixTrie.insert('cat');
+
     expect(Object.keys(prefixTrie.root)).to.deep.equal(['a', 'b', 'c']);
   });
 
@@ -38,8 +41,21 @@ describe('TRIE', () => {
     prefixTrie.insert('card');
     prefixTrie.insert('cards');
     prefixTrie.insert('carry');
+
     let response = prefixTrie.suggest('car');
     expect(response).to.deep.equal(['carrot', 'carry', 'card', 'cards']);
+  });
+
+ it('should return \'zero results\' when no suggestions are found', () => {
+    prefixTrie.insert('apple');
+    prefixTrie.insert('bat');
+    prefixTrie.insert('cat');
+
+    let response = prefixTrie.suggest('dog');
+    let response2 = prefixTrie.suggest('appple');
+
+    expect(response).to.deep.equal('Zero Results');
+    expect(response2).to.deep.equal('Zero Results');
   });
 
   it('should populate with dictionary', () => {
