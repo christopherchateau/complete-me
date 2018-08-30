@@ -17,7 +17,7 @@ describe('TRIE', () => {
     expect(prefixTrie).to.exist;
   });
 
-  it('should have a default length on zero', () => {
+  it('should have a default length of zero', () => {
     expect(prefixTrie.wordCount).to.equal(0);
   });
 
@@ -36,15 +36,16 @@ describe('TRIE', () => {
 
   it('should return an array of suggestions', () => {
     prefixTrie.insert('carrot');
-    prefixTrie.insert('cars');
     prefixTrie.insert('card');
+    prefixTrie.insert('cards');
+    prefixTrie.insert('carry');
 
-    let response = prefixTrie.suggest('ca');
+    let response = prefixTrie.suggest('car');
     //console.log(JSON.stringify(prefixTrie, null, 4));
-    expect(response).to.deep.equal(['carrot', 'cars', 'card']);
+    expect(response).to.deep.equal(['carrot', 'carry', 'card', 'cards']);
   });
 
-  it.skip('should populate with dictionary', () => {
+  it('should populate with dictionary', () => {
     prefixTrie.populate(dictionary);
     expect(prefixTrie.count()).to.equal(235886);
   });
